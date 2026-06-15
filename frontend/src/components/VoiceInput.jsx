@@ -79,12 +79,25 @@ export default function VoiceInput({ onNoteReady }) {
         )}
       </div>
 
-      {transcript && (
-        <div className="bg-base rounded-lg p-3 text-gray-300 text-sm italic">
-          <p className="text-xs text-gray-500 mb-1">Transcript:</p>
-          {transcript}
-        </div>
-      )}
+      <div className="space-y-2">
+        <p className="text-xs text-gray-500">Or type your brain dump below:</p>
+        <textarea
+          value={transcript}
+          onChange={(e) => setTranscript(e.target.value)}
+          placeholder="Type your messy thoughts here and click Structure with AI..."
+          rows={4}
+          className="w-full bg-base border border-gray-700 rounded-lg p-3 text-gray-300 text-sm resize-none focus:outline-none focus:border-primary"
+        />
+        {transcript && (
+          <button
+            onClick={processWithAI}
+            disabled={processing}
+            className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:opacity-50 rounded-lg text-white font-medium transition-colors"
+          >
+            {processing ? "Processing..." : "Structure with AI"}
+          </button>
+        )}
+      </div>
 
       {error && <p className="text-red-400 text-sm">{error}</p>}
     </div>
